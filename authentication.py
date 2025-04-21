@@ -26,23 +26,23 @@ def login():
         conn.close()
 
 # Vulnerable code displaying specific error message
-        # if not user:
-        #     flash("Invalid username")  # Vulnerable: Reveals if the username is incorrect
-        # elif user[2] != password:
-        #     flash("Invalid password")  # Vulnerable: Reveals if the password is incorrect
-        # else:
-        #     session['username'] = user[1]
-        #     session['role'] = user[3]
-        #     return redirect(url_for('dashboard'))
-
-    # return render_template('auth_login.html')
-# SECURE CODE: Uncomment the following to fix vulnerabilities 
-        if not user or user[2] != password:
-            flash("Invalid login credentials")  # Secure: Generic error message
+        if not user:
+            flash("Invalid username")  # Vulnerable: Reveals if the username is incorrect
+        elif user[2] != password:
+            flash("Invalid password")  # Vulnerable: Reveals if the password is incorrect
         else:
             session['username'] = user[1]
             session['role'] = user[3]
             return redirect(url_for('dashboard'))
+
+    # return render_template('auth_login.html')
+# SECURE CODE: Uncomment the following to fix vulnerabilities 
+        # if not user or user[2] != password:
+        #     flash("Invalid login credentials")  # Secure: Generic error message
+        # else:
+        #     session['username'] = user[1]
+        #     session['role'] = user[3]
+        #     return redirect(url_for('dashboard'))
 
     return render_template('auth_login.html')
 

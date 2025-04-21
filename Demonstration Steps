@@ -112,4 +112,3 @@ Secure: salted bcrypt output, changes every time.
 Results - 
 FOr MD5 encryption , it generates the same hash everytime
 for bcrypt and env variable key, it generates new hash everytime
-

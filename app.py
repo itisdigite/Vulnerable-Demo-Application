@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 import sqlite3
 import html
+import re
 # from auth import auth
 
 app = Flask(__name__)
@@ -25,11 +26,13 @@ def search_vulnerable():
     conn = sqlite3.connect('database.db')
     cursor = conn.cursor()
     # Uncomment below 2 lines to turn off vulnerable code
-    # query = f"SELECT * FROM users WHERE username = '{search_term}'"
-    # cursor.execute(query)
+    query = f"SELECT username FROM users WHERE username = '{search_term}'"
+    cursor.execute(query)
     # Uncomment below code for secure input validation
-    query = "SELECT * FROM users WHERE username = ?"
-    cursor.execute(query, (search_term,))
+    # if not re.match(r"^[a-zA-Z0-9_\-']+$", search_term):
+    #     return "Invalid input: Only letters, digits, underscore (_), hyphen (-), and apostrophe (') are allowed.", 400
+    # query = "SELECT * FROM users WHERE username = ?"
+    # cursor.execute(query, (search_term,))
     results = cursor.fetchall()
     conn.close()
     return render_template('search_results.html', results=results)

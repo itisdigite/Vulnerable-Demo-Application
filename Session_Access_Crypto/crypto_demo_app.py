@@ -56,8 +56,8 @@ def index():
 
         elif method == "secure":
             # ✅ SECURE: Key from env + bcrypt hashing
-            # key_used = os.getenv("SECURE_KEY", "ENV_KEY_NOT_SET")
-            # combined = password + key_used
+            key_used = os.getenv("SECURE_KEY", "ENV_KEY_NOT_SET")
+            combined = password + key_used
             result = bcrypt.hashpw(combined.encode(), bcrypt.gensalt()).decode()
 
     return render_template_string(template, result=result, key=key_used, method=method.capitalize() if method else "")
