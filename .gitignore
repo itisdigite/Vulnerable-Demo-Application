@@ -1,0 +1,4 @@
+__pycache__/*
+.venv/*
+Session_Access_Crypto/__pycache__/access_control.cpython-310.pyc
+Session_Access_Crypto/flask_session/2029240f6d1128be89ddc32729463129

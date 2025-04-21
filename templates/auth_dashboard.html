@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Dashboard</title>
+    <script>
+        // SECURE CODE: Uncomment this function to handle password verification
+        function accessConfidentialFile() {
+            const userPassword = prompt("Enter your password to access the confidential file:");//             
+            if (userPassword) {
+                // Send the password to the server for verification
+                fetch('/verify_password', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ password: userPassword })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Password is correct, navigate to confidential.html
+                        window.location.href = '/confidential';
+                    } else {
+                        // Password is incorrect, show an alert and stay on the dashboard
+                        alert("Incorrect password. Access denied.");
+                    }
+                })
+                .catch(error => {
+                    console.error("Error verifying password:", error);
+                    alert("An error occurred. Please try again.");
+                });
+            } else {
+                alert("Password is required to access the confidential file.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Welcome, {{user}}</h1>
+    <p>This is the user dashboard.</p>
+    <!-- <a href="/logout"><button>Logout</button></a> -->
+    <br><br>
+
+    <!-- VULNERABLE CODE: Directly navigate to confidential.html -->
+    <a href="/confidential"><button>Confidential File</button></a>
+
+    <!-- SECURE CODE: Uncomment the following button to handle password verification -->
+    <!-- <button onclick="accessConfidentialFile()">Confidential File</button> -->
+</body>
+</html>

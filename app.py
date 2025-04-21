@@ -1,12 +1,12 @@
 from flask import Flask, render_template, request, session, redirect, url_for
 import sqlite3
 import html
-from auth import auth
+# from auth import auth
 
 app = Flask(__name__)
 app.secret_key = 'your-secret-key'  # In production, use a secure random key
 # Register the auth blueprint
-app.register_blueprint(auth, url_prefix='/auth')
+# app.register_blueprint(auth, url_prefix='/auth')
 
 @app.route('/')
 def home():

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome, {{ username }}!</h1>
+    <p>Your role: {{ role }}</p>
+    <a href="{{ url_for('access.confidential') }}">Access Confidential Page</a>
+    <br>
+    <a href="{{ url_for('access.logout') }}">Logout</a>
+</body>
+</html>

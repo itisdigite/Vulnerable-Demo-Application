@@ -1,0 +1,115 @@
+Steps to demonstrate Authentication and Password Management
+Navigate to Demo_Application Directory
+Start a virtual env using source .venv/bin/activate
+Start the setupdb.py file
+Start the app.py file 
+Navigate to localhost:5000
+
+
+1. Navigate to /auth/signup-vulnerable
+Input a weak password and see the file is saved
+2. Navigate to /auth/login-vulnerable
+Incorrect set of creds and see the output
+3. Uncomment the code for secure signup
+Input a weak password and see the error
+Input a strong password
+4. Uncomment the code for secure login
+input incorrect creds and see error
+input valid creds
+
+======= STRAT ===============
+1. Input Validation (Done)
+start the app.py and access it on port 5000
+Vulnerable SQL Injection Demo:
+Navigate to /input-validation/search
+Enter ' OR '1'='1 in the search box
+Observe that it returns all users from the database
+Secure SQL Injection Prevention:
+Navigate to /input-validation/search-secure
+Enter the same input ' OR '1'='1
+Observe that it treats it as a literal search term
+------------------------------------------------------------------
+Input Validation
+   - Always use parameterized queries   
+   - Validate input data types and formats   
+   - Implement proper error handling
+   
+==================================================================
+2. Output Encoding (Done)
+start the app.py and access it on port 5000	
+Vulnerable XSS Demo:
+Navigate to /output-encoding/comment
+Enter <script>alert('XSS')</script> in the comment box
+Observe that the script executes
+Secure XSS Prevention:
+Navigate to /output-encoding/comment-secure
+Enter the same script
+Observe that it's displayed as text
+------------------------------------------------------------------
+Output Encoding:
+	- Use proper HTML escaping
+	- Implement Content Security Policy (CSP)
+	- Validate and sanitize user input
+
+==================================================================
+3. Authentication & Password Management
+3.1 Ensure Generic Error message
+start authentication.py - port 6005
+navigate to the login page
+input correct creds and successful login
+input incorrect creds and see how specific error message is displayed
+uncomment secure code
+again input incorrect creds and now its generic message
+
+3.2 Ensure password reuse is not allowed
+navigate to password_reset.html
+enter the correct username and password 
+you will see the password is updated
+uncomment secure code
+try the step again the password cannot be reused
+
+3.3 Require authentication for confidential pages
+input the changed password for accessing the confidential file
+------------------------------------------------------------------
+Authentication:
+	- Use strong password hashing
+	- Implement proper session management
+	- Add rate limiting
+	- Use HTTPS in production
+
+==================================================================
+********************CHANGE FOLDER HERE ONWARDS*******************************
+4. Session Management (Done)
+flask --app session_app run --port=5999  # Normal user
+flask --app session_app run --port=6001  # Admin user
+Normal User → http://localhost:5999
+Admin User → http://localhost:6001
+Login to the admin user and capture the cookies for /dashboard
+Login to the normal user and capture the cookies for /dashboard
+Replace the cookies for normal user with the admin user and see admin appears on the screen
+for Secure - 
+Uncomment the code, follow the same steps.
+
+==================================================================
+5. Access Control (Done)
+run access_control_user.py - port 5700
+run access_control_admin.py - port 5701
+Log in as normal user.
+upon login you'll see normal user dashboard
+change the query param to admin ----> admin dashboard
+uncomment the secure code and comment the vulnerabel code
+change the role param and you'll still see user dashboard
+
+==================================================================
+6. Cryptographic Practices (Done)
+flask --app crypto_demo_app run --port=5002   
+Enter password → click each button.
+
+Show result:
+Vulnerable: static key and predictable MD5 hash.
+Secure: salted bcrypt output, changes every time.
+
+Results - 
+FOr MD5 encryption , it generates the same hash everytime
+for bcrypt and env variable key, it generates new hash everytime
+
